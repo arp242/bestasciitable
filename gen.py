@@ -13,11 +13,12 @@ print('''<!DOCTYPE html>
         *          { box-sizing: border-box; }
         html       { font: 16px/140% Lato, sans-serif; background-color: #f7f7f7; }
         body       { margin: 0; display: flex; flex-direction: column; align-items: center; }
-        header     { text-align: center; width: 100%; background-color: #ebe7c3; padding-bottom: 1.2em; margin-bottom: 1em; }
-        h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; }
+        header     { text-align: center; width: 100%; background-color: #ebe7c3; padding-bottom: 1em; }
+        h1         { margin-bottom: .2em; }
+        h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; margin-top: .5em;  }
         h3         { margin: 0; }
         h3 + p     { margin-top: 5px; }
-        body>div   { max-width: 60em; }
+        body>div   { max-width: 60em; display: flex; }
         img        { cursor: pointer; }
         figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; }
         figcaption { padding: 0 6px; padding-bottom: 4px; }
@@ -58,7 +59,7 @@ print('''<!DOCTYPE html>
     </header>
 
     <h2>Introduction</h2>
-    <div style="display: flex;">
+    <div>
         <div>
             <p>To understand ASCII you need to understand some history and the
             world it was developed in; please bear with me, or <a
@@ -244,8 +245,8 @@ print('''<!DOCTYPE html>
         </div>
     </div>
 
-    <h2 id="table">The table</h2>
-    <table>''')
+    <h2>The table</h2>
+    <table id="table">''')
 
 
 names = ['NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS', 'HT',
