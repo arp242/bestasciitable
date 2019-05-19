@@ -18,11 +18,11 @@ print('''<!DOCTYPE html>
         h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; margin-top: .5em;  }
         h3         { margin: 0; }
         h3 + p     { margin-top: 5px; }
-        body>div   { max-width: 60em; display: flex; }
+        #intro     { max-width: 60em; display: flex; }
         img        { cursor: pointer; }
-        figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; }
+        figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; margin-right: 0; }
         figcaption { padding: 0 6px; padding-bottom: 4px; }
-        table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; }
+        table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; max-width: 100%; overflow-x: auto; }
         tbody      { padding: 0 10px; border-right: 1px solid #888; }
         tbody:last-child { border-right: none; }
         td         { padding: 6px; }
@@ -32,12 +32,6 @@ print('''<!DOCTYPE html>
         a          { text-decoration: none; color: #00f; transition: color .2s; }
         a:hover    { text-decoration: underline; color: #6491ff; }
         li         { margin-bottom: .4em; }
-
-        @media (max-width: 60rem) {
-            body>div {
-                padding-left: 1em;
-            }
-        }
 
         p, li, figcaption { text-align: justify; hyphens: auto; }
         tr:nth-child(1)   { border-top: none; }
@@ -49,6 +43,27 @@ print('''<!DOCTYPE html>
 
         img.imgzoom-loading { cursor: wait; }
         .imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
+
+        @media (max-width: 62em) {
+            #intro { padding: 0 1em; }
+            figure { margin-left: 1em; }
+            table  { margin: 0 1em; }
+        }
+
+        @media (max-width: 45em) {
+            img { max-width: 250px; }
+        }
+
+        @media (max-width: 40em) {
+            img    { width: 100%; }
+            figure { width: 48%; margin-left: .5%; }
+            #intro { display: block; }
+            #intro-img {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+        }
     </style>
 </head>
 
@@ -58,8 +73,8 @@ print('''<!DOCTYPE html>
         <strong>Or, why does Ctrl+i insert a Tab?</strong>
     </header>
 
-    <h2>Introduction</h2>
-    <div>
+    <h2 style="margin-bottom: 0">Introduction</h2>
+    <div id="intro">
         <div>
             <p>To understand ASCII you need to understand some history and the
             world it was developed in; please bear with me, or <a
@@ -126,7 +141,7 @@ print('''<!DOCTYPE html>
             databases</a> are required). ASCII is more than just a character
             set; it’s a way to communicate between a terminal and a
             computer.</p>
-            
+
             <p>An additional method to communicate which came along with visual
             terminals like the ADM-3A and VT100 is sending <em>escape
             sequences</em>. This is a list of characters starting with the ESC
@@ -204,7 +219,7 @@ print('''<!DOCTYPE html>
             can emulate), ioctls, etc.</p>
         </div>
 
-        <div>
+        <div id="intro-img">
             <figure>
                 <img src="printing-telegraph-t.jpg" data-large="printing-telegraph.jpg" alt="Stock Exchange printing telegraph, 1907">
                 <figcaption><em>Image 1</em>, a printing telegraph produced in

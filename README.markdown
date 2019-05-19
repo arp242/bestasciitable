@@ -14,3 +14,4 @@ It's a bit of a work-in-progress. TODO:
 - Find a way to just show the table for a quick overview while also offering the
   explainer. Maybe put the explainer after the table, or collapse it? Not sure.
 - Looks like there's room for one more image.
+- imgzoom doesn't seem to work well for smaller screen sizes?
