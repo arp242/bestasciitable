@@ -3,13 +3,13 @@
 print('''<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ASCII table and history (or, why does Ctrl+i insert a Tab?)</title>
-	<link rel="canonical" href="https://bestasciitable.com">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ASCII table and history (or, why does Ctrl+i insert a Tab?)</title>
+    <link rel="canonical" href="https://bestasciitable.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext">
     <link rel="shortcut icon" href="/favicon.ico">
-	<style>
+    <style>
         *          { box-sizing: border-box; }
         html       { font: 16px/140% Lato, sans-serif; background-color: #f7f7f7; }
         body       { margin: 0; display: flex; flex-direction: column; align-items: center; }
@@ -18,11 +18,12 @@ print('''<!DOCTYPE html>
         h3         { margin: 0; }
         h3 + p     { margin-top: 5px; }
         body>div   { max-width: 60em; }
-		img        { cursor: pointer; }
+        img        { cursor: pointer; }
         figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; }
         figcaption { padding: 0 6px; padding-bottom: 4px; }
-        table      { font-family: monospace; border-collapse: collapse; display: flex; justify-content: flex-start; }
-        tbody      { margin-right: 1em; position: relative; }
+        table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; }
+        tbody      { padding: 0 10px; border-right: 1px solid #888; }
+        tbody:last-child { border-right: none; }
         td         { padding: 6px; }
         tr         { border-top: 1px solid #888; }
         footer     { background-color: #ebe7c3; padding: 1em; margin-top: 1em; width: 100%; }
@@ -37,7 +38,7 @@ print('''<!DOCTYPE html>
             }
         }
 
-		p, li, figcaption { text-align: justify; hyphens: auto; }
+        p, li, figcaption { text-align: justify; hyphens: auto; }
         tr:nth-child(1)   { border-top: none; }
 
         td:nth-child(1)   { color: #cd0000; }
@@ -45,20 +46,9 @@ print('''<!DOCTYPE html>
         td:nth-child(3)   { color: #008787; white-space: nowrap; }
         td:nth-child(4)   { font-weight: bold; text-align: right; }
 
-        tbody:nth-child(1):after,
-        tbody:nth-child(2):after,
-        tbody:nth-child(3):after {
-            content: "";
-            height: calc(100%  - 1.6em);
-            position: absolute;
-            top: 1.6em;
-            right: -.5em;
-            border-right: 1px solid #888;
-        }
-
-		img.imgzoom-loading { cursor: wait; }
-		.imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
-	</style>
+        img.imgzoom-loading { cursor: wait; }
+        .imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
+    </style>
 </head>
 
 <body>
@@ -353,12 +343,12 @@ print('''
         </footer>
 
         <script src="imgzoom.js"></script>
-		<script>
-			window.addEventListener('load', function() {
-				var img = document.querySelectorAll('img');
-				for (var i=0; i<img.length; i++)
-					img[i].addEventListener('click', function(e) { imgzoom(this); }, false);
-			}, false);
-		</script>
+        <script>
+            window.addEventListener('load', function() {
+                var img = document.querySelectorAll('img');
+                for (var i=0; i<img.length; i++)
+                    img[i].addEventListener('click', function(e) { imgzoom(this); }, false);
+            }, false);
+        </script>
     </body>
 </html>''')

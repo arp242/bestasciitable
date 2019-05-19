@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ASCII table and history (or, why does Ctrl+i insert a Tab?)</title>
 	<link rel="canonical" href="https://bestasciitable.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400">
 	<style>
         *          { box-sizing: border-box; }
         html       { font: 16px/140% Lato, sans-serif; background-color: #f7f7f7; }
@@ -19,8 +19,9 @@
 		img        { cursor: pointer; }
         figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; }
         figcaption { padding: 0 6px; padding-bottom: 4px; }
-        table      { font-family: monospace; border-collapse: collapse; display: flex; justify-content: flex-start; }
-        tbody      { margin-right: 1em; position: relative; }
+        table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; }
+		tbody      { padding: 0 10px; border-right: 1px solid #888; }
+		tbody:last-child { border-right: none; }
         td         { padding: 6px; }
         tr         { border-top: 1px solid #888; }
         footer     { background-color: #ebe7c3; padding: 1em; margin-top: 1em; width: 100%; }
@@ -42,17 +43,6 @@
         td:nth-child(2)   { }
         td:nth-child(3)   { color: #008787; white-space: nowrap; }
         td:nth-child(4)   { font-weight: bold; text-align: right; }
-
-        tbody:nth-child(1):after,
-        tbody:nth-child(2):after,
-        tbody:nth-child(3):after {
-            content: "";
-            height: calc(100%  - 1.6em);
-            position: absolute;
-            top: 1.6em;
-            right: -.5em;
-            border-right: 1px solid #888;
-        }
 
 		img.imgzoom-loading { cursor: wait; }
 		.imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
