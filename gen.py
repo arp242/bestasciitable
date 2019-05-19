@@ -106,7 +106,7 @@ print('''<!DOCTYPE html>
             terminal”).</p>
 
             <p>It’s perhaps hard to imagine, but people really programmed computers
-            using teletypes. Here’s a
+            using Teletypes. Here’s a
             <a href="https://www.youtube.com/watch?v=qv5b1Xowxdk">video of a teleprinter in action</a>,
             and here’s a cheesy (but interesting and cute) video which explains
             how they
@@ -258,10 +258,10 @@ print('''<!DOCTYPE html>
     <table>''')
 
 
-names = ['NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS ', 'HT ',
-         'LF ', 'VT ', 'FF ', 'CR ', 'SO ', 'SI ', 'DLE', 'DC1', 'DC2', 'DC3',
-         'DC4', 'NAK', 'SYN', 'ETB', 'CAN', 'EM ', 'SUB', 'ESC', 'FS ', 'GS ',
-         'RS ', 'US ', 'SPACE']
+names = ['NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS', 'HT',
+         'LF', 'VT', 'FF', 'CR', 'SO', 'SI', 'DLE', 'DC1', 'DC2', 'DC3',
+         'DC4', 'NAK', 'SYN', 'ETB', 'CAN', 'EM', 'SUB', 'ESC', 'FS', 'GS',
+         'RS', 'US', 'SPACE']
 
 titles = ['\\0, null character', 'start of heading', 'start of text',
           'end of text', 'end of transmission', 'enquiry', 'acknowledge',
@@ -306,10 +306,10 @@ for n in range(0, 128):
     b = f'{n:0>7b}'
     print(f'''
             <tr>
-                <td>{n}
+                <td>{n}</td>
                 <td>{hex(n)}</td>
                 <td>{b[:2]} {b[2:]}</td>
-                <td title="{title}">{char}</td>
+                <td{' title="' + title + '"' if title else ''}>{char}</td>
             </tr>''')
 print('''
             </tbody>
