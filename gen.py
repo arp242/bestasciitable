@@ -28,7 +28,7 @@ print('''<!DOCTYPE html>
         td         { padding: 6px; }
         tr         { border-top: 1px solid #888; }
         footer     { background-color: #ebe7c3; padding: 1em; margin-top: 1em; width: 100%; }
-        footer p   { text-align: right; }
+        footer p   { margin: .5em 0; }
         a          { text-decoration: none; color: #00f; transition: color .2s; }
         a:hover    { text-decoration: underline; color: #6491ff; }
         li         { margin-bottom: .4em; }
@@ -337,10 +337,13 @@ print('''
         <footer>
             <p>Created by <a href="https://arp242.net">Martin Tournoij</a>,
             because I’ve had to explain “Control + i *is* Tab” once too many
-            times and figured an in-depth explanation would be helpful.
-            <a href="https://github.com/arp242/bestasciitable">Source</a></p>
+            times and figured an in-depth explanation would be helpful.</p>
+
+            <p><a href="https://github.com/arp242/bestasciitable">Source on GitHub</a>;
+            PRs and issues welcome.</p>
 
             <p>
+                Image credits:
                 <a href="http://collection.sciencemuseum.org.uk/objects/co33749/stock-exchange-printing-telegraph-1907-telegraph">
                     Image 1 by Science Museum</a>; <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> |
                 <a href="https://en.wikipedia.org/wiki/File:Teletype_with_papertape_punch_and_reader.jpg">
