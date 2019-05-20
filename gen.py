@@ -76,9 +76,10 @@ print('''<!DOCTYPE html>
     <h2 style="margin-bottom: 0">Introduction</h2>
     <div id="intro">
         <div>
-            <p>To understand ASCII you need to understand some history and the
-            world it was developed in; please bear with me, or <a
-            href="#table">just go the table</a>.</p>
+            <p>To understand why Control+i inserts a tab you need to understand
+            ASCII, and to understand ASCII you need know a bit about its history
+            and the world it was developed in. Please bear with me (or <a
+            href="#table">just go the table</a>).</p>
 
             <h3 id="teleprinters">Teleprinters</h3>
             <p>Teleprinters evolved from the telegraph. Connect a printer and
