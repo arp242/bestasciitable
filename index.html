@@ -1,1244 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ASCII table and history (or, why does Ctrl+i insert a Tab in my terminal?)</title>
-    <link rel="canonical" href="https://bestasciitable.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <style>
-        *          { box-sizing: border-box; }
-        html       { font: 16px/140% Lato, sans-serif; background-color: #f7f7f7; }
-        body       { margin: 0; display: flex; flex-direction: column; align-items: center; }
-        header     { text-align: center; width: 100%; background-color: #ebe7c3; padding-bottom: 1em; }
-        h1         { margin-bottom: .2em; }
-        h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; margin-top: .5em;  }
-        h3         { margin: 0; }
-        h3 + p     { margin-top: 5px; }
-        #intro     { max-width: 60em; display: flex; }
-        img        { cursor: pointer; }
-        figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; margin-right: 0; }
-        figcaption { padding: 0 6px; padding-bottom: 4px; }
-        table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; max-width: 100%; overflow-x: auto; }
-        tbody      { padding: 0 10px; border-right: 1px solid #888; }
-        tbody:last-child { border-right: none; }
-        td         { padding: 6px; }
-        tr         { border-top: 1px solid #888; }
-        footer     { background-color: #ebe7c3; padding: 1em; margin-top: 1em; width: 100%; }
-        footer p   { margin: .5em 0; }
-        a          { text-decoration: none; color: #00f; transition: color .2s; }
-        a:hover    { text-decoration: underline; color: #6491ff; }
-        li         { margin-bottom: .4em; }
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ASCII table and history (or, why does Ctrl+i insert a Tab in my terminal?)</title>
+	<link rel="canonical" href="https://bestasciitable.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext">
+	<link rel="icon" type="image/png" href="/favicon.png">
+	<style>
+		*          { box-sizing: border-box; }
+		html       { font: 16px/140% Lato, sans-serif; background-color: #f7f7f7; }
+		body       { margin: 0; display: flex; flex-direction: column; align-items: center; }
+		header     { text-align: center; width: 100%; background-color: #ebe7c3; padding-bottom: 1em; }
+		h1         { margin-bottom: .2em; }
+		h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; margin-top: .5em;  }
+		h3         { margin: 0; }
+		h3 + p     { margin-top: 5px; }
+		#intro     { max-width: 60em; display: flex; overflow: hidden; }
+		img        { cursor: pointer; }
+		figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; margin-right: 0; }
+		figcaption { padding: 0 6px; padding-bottom: 4px; }
+		table      { font: 16px/100% monospace; border-collapse: collapse; display: flex; justify-content: flex-start; max-width: 100%; overflow-x: auto; }
+		tbody      { padding: 0 10px; border-right: 1px solid #888; /* IE11 fix: */ float: left; }
+		tbody:last-child { border-right: none; }
+		td         { padding: 6px; }
+		tr         { border-top: 1px solid #888; }
+		footer     { background-color: #ebe7c3; padding: 1em; margin-top: 1em; width: 100%; }
+		footer p   { margin: .5em 0; }
+		a          { text-decoration: none; color: #00f; transition: color .2s; }
+		a:hover    { text-decoration: underline; color: #6491ff; }
+		li         { margin-bottom: .4em; }
+		sup        { height: 0; line-height: 1; vertical-align: baseline; position: relative; bottom: 1ex; }
+		.small     { font-size: 12px; border-top: 1px solid #333; }
 
-        p, li, figcaption { text-align: justify; hyphens: auto; }
-        tr:nth-child(1)   { border-top: none; }
+		p, li, figcaption { text-align: justify; hyphens: auto; }
+		tr:nth-child(1)   { border-top: none; }
 
-        td:nth-child(1)   { color: #cd0000; }
-        td:nth-child(2)   { }
-        td:nth-child(3)   { color: #008787; white-space: nowrap; }
-        td:nth-child(4)   { font-weight: bold; text-align: right; }
+		td:nth-child(1)   { color: #cd0000; }
+		td:nth-child(2)   { }
+		td:nth-child(3)   { color: #008787; white-space: nowrap; }
+		td:nth-child(4)   { font-weight: bold; text-align: right; }
 
-        img.imgzoom-loading { cursor: wait; }
-        .imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
+		img.imgzoom-loading { cursor: wait; }
+		.imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
 
-        @media (max-width: 62em) {
-            #intro { padding: 0 1em; }
-            figure { margin-left: 1em; }
-            table  { margin: 0 1em; }
-        }
+		@media (max-width: 62em) {
+			#intro { padding: 0 1em; }
+			figure { margin-left: 1em; }
+			table  { margin: 0 1em; }
+		}
 
-        @media (max-width: 45em) {
-            img { max-width: 250px; }
-        }
+		@media (max-width: 45em) {
+			img { max-width: 250px; }
+		}
 
-        @media (max-width: 40em) {
-            img    { width: 100%; }
-            figure { width: 48%; margin-left: .5%; }
-            #intro { display: block; }
-            #intro-img {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-        }
-    </style>
+		@media (max-width: 40em) {
+			img    { width: 100%; }
+			figure { width: 48%; margin-left: .5%; }
+			#intro { display: block; }
+			#intro-img {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+		}
+	</style>
 </head>
 
 <body>
-    <header>
-        <h1>ASCII table and history</h1>
-        <strong>Or, why does Ctrl+i insert a Tab in my terminal?</strong>
-    </header>
-
-    <h2 style="margin-bottom: 0">Introduction</h2>
-    <div id="intro">
-        <div>
-            <p>To understand why Control+i inserts a tab in your terminal you
-            need to understand ASCII, and to understand ASCII you need know a
-            bit about its history and the world it was developed in. Please bear
-            with me (or <a href="#table">just go the table</a>).</p>
-
-            <h3 id="teleprinters">Teleprinters</h3>
-            <p>Teleprinters evolved from the telegraph. Connect a printer and
-            keyboard to a telegraph and you’ve got a teleprinter. Early versions
-            were called “printing telegraphs”.</p>
-
-            <p>Teleprinters communicated using ITA2. For the most part this was
-            just a standard to encode the alphabet, but there are a few control
-            codes: WRU (“Who R U”) would cause the receiving teletype to send
-            back its identification, BEL would ring a bell, and the familiar CR
-            (Carriage Return) and LF (Line Feed).</p>
-
-            <p>This is all early 20th century stuff. There are no computers;
-            it’s all mechanical working with punched tape. ITA2 (and codes like
-            it) were mechanical efficient; common letters such as “e” and “t”
-            required only a single hole to be punched.</p>
-
-            <p>These 5-bit codes could only encode 32 characters, which is not
-            enough. The solution was to add the FIGS and LTRS codes, which would
-            switch between “figures” and “letters” mode. “FIGS R W” would
-            produce “42”. This worked, but typo’ing a FIGS or LTRS, or losing
-            one in line noise, would result in gibberish. Not ideal.</p>
-
-            <h3 id="terminals">Terminals</h3>
-
-            <p>Teleprinters were also used to connect to computers, rather than
-            other teleprinters. ITA2 was designed for mechanical machines and
-            awkward, so ASCII designed specifically for computer use and
-            published in 1962. Teleprinters used with computers were called
-            <em>terminals</em> (as in “end of a connection”, like “train
-            terminal”).</p>
-
-            <p>It’s perhaps hard to imagine, but people really programmed computers
-            using Teletypes. Here’s a
-            <a href="https://www.youtube.com/watch?v=qv5b1Xowxdk">video of a teleprinter in action</a>,
-            and here’s a cheesy (but interesting and cute) video which explains
-            how they
-            <a href="https://www.youtube.com/watch?v=XV-7J5y1TQc">were used to program a PDP 11/10</a>.
-            </p>
-
-            <p>The Teletype model 33 was massively popular, and the brand name
-            Teletype became synonymous with terminal. The abbreviated form of
-            Teletype is TTY. Yes, like /dev/tty or /bin/stty on your modern
-            Linux or macOS system.</p>
-
-            <p>A terminal would connect to a computer using a serial port (<a
-            href="https://en.wikipedia.org/wiki/RS-232">RS-232</a>) which
-            simply transferred characters. The best way to see a terminal is as
-            a monitor with an integrated keyboard, rather than a computer on its
-            own. A modern monitors connected with HDMI is told “draw this pixel
-            in this colour”. In the 1960s the computer merely said “draw this
-            character”.</p>
-
-            <p>Teleprinters and terminals connected with <em>only</em> a serial
-            port sending characters, so they needed some way to communicate
-            events such as “stop sending me data” or “end of transmission”. This
-            is what control characters are for. The exact meaning of control
-            characters has varied greatly over the years (which is why extensive
-            <a href="https://en.wikipedia.org/wiki/Termcap">termcap
-            databases</a> are required). ASCII is more than just a character
-            set; it’s a way to communicate between a terminal and a
-            computer.</p>
-
-            <p>An additional method to communicate which came along with visual
-            terminals like the ADM-3A and VT100 is sending <em>escape
-            sequences</em>. This is a list of characters starting with the ESC
-            control character (0x1b) which have a special meaning.
-
-            For example F1 is “&lt;Esc&gt;OP”,
-            the left arrow is “&lt;Esc&gt;[OD”,
-            “&lt;Esc&gt;[2C” is move the cursor 2 positions forward, 
-            “&lt;Esc&gt;[4m” underlines all subsequent text,
-            etc. </p>
-
-            <h3 id="modern">Modern systems and ASCII properties</h3>
-            <p>All of this matters because modern terminals operate on the same
-            fundamentals as those of the 60s. If you’re opening three windows
-            with xterm or iTerm2 then you’re emulating three terminals
-            connecting to a “mainframe”.</p>
-
-            <p>If you look at the ASCII table below then there are some
-            interesting properties: in the 1st column you can see how the left
-            two bits are always set to zero, and that the rest count to 31 (32
-            characters in total; it starts at 0). The 2nd column then repeats
-            this pattern but with the 5th bit set to 1 (remember, read binary
-            numbers from right-to-left, so that’s 5th from the right). The
-            3rd column repeats this pattern again with the 6th bit set, and the
-            final column has both bits set.</p>
-
-            <p>The interesting part here is that the letters A-Z, as well as
-            some punctuation, map directly to the control characters in the
-            first column. All that’s needed is removing one bit, and that’s
-            exactly what the Control key did: clear the 6th bit. Lowercase and
-            uppercase letters align in the 3rd and 4th columns, and this is what
-            the Shift key did: clear the 5th bit.</p>
-
-            <p>Pressing Control+a (lowercase) would mean sending !, which is not
-            very useful. So most terminals interpret this as Control+A
-            (uppercase), which sends SOH.</p>
-
-            <p>DEL is last is because all bits are set to 1. This is how you
-            “deleted” a character in punch tapes: punch all the holes!</p>
-
-            <p>This is kind of neat and well designed, but it does have some
-            effects, even for modern terminals:</p>
-
-            <ul>
-                <li>There is no way to see if the user pressed just Control or
-                Shift, because from a terminal’s perspective all they do is
-                modify a bit for the typed character.</li>
-
-                <li>There is no way to distinguish between the Tab key and
-                Control+i. It’s not just ‘the same’ as Tab, Control+i
-                <strong>is</strong> Tab.</li>
-
-                <li>There is no way to distinguish between Control+a and
-                Control+Shift+a.</li>
-
-                <li>Sending Control with a character from the 2nd column is
-                useless. Control removes the 7th bit, but this is already 0, so
-                Control+: will just send : (this does work for some characters
-                now, but not all)</li>
-            </ul>
-
-            <p>The world has not <em>completely</em> stood still, and there are
-            some improvements from the 1960s, but terminals are still
-            fundamentally ASCII-based text interfaces, and programs running
-            inside a terminal – like a shell or Vim – still have very limited
-            facilities for modern key events. Non-terminal programs don’t have
-            these problems as they’re not restricted to a 1960s text
-            interface.</p>
-
-            <p style="font-size: 12px; border-top: 1px solid #333;">Note: for
-            brevity’s sake many details have been omitted in the above: ITA2 was
-            derived from Murray code, the 1967 ASCII spec changed many aspects
-            (1962 ASCII only had uppercase), there were other encodings (e.g.
-            EBCDIC), graphical terminals such as the Tektronix 4014 (which xterm
-            can emulate), ioctls, etc.</p>
-        </div>
-
-        <div id="intro-img">
-            <figure>
-                <img src="printing-telegraph-t.jpg" data-large="printing-telegraph.jpg" alt="Stock Exchange printing telegraph, 1907">
-                <figcaption><em>Image 1</em>, a printing telegraph produced in
-                1907. The alphabetically sorted piano-style keys are a great
-                example of how the first generation of a new innovation tends to
-                resemble whatever already exists, and that it takes a few more
-                innovations to really get the most out of it (this style of
-                piano keyboards was introduced in the 1840s, and while the
-                keyboard as we know it today was introduced in the 1870s, it
-                took a while for it to replace all piano-style keyboards; this
-                is probably among the last models that was made).
-                </figcaption>
-            </figure>
-            <figure>
-                <img src="tty-model-33-asr-t.jpg" data-large="tty-model-33-asr.jpg" alt="Teletype model 33 ASR, 1963">
-                <figcaption><em>Image 2</em>, the Teletype model 33 ASR,
-                introduced in 1963. This is one first ASCII teleprinters. Note
-                the machinery on the left; you could feed this with a punched
-                tape to automatically type a program for you, similar to how you
-                would now load a program from a disk.
-                </figcaption>
-            </figure>
-            <figure>
-                <img src="pdp11-t.jpg" data-large="pdp11.jpg" alt="Ken Thompson working on the PDP-11">
-                <figcaption><em>Image 3</em>, Ken Thompson working on the PDP-11
-                using a Teletype. What always struck be about this image is the
-                atrocious ergonomics of … everything. The keyboard, the chair,
-                everything about the posture: it’s all terrible. Inventing Unix
-                almost seems <em>easy</em> compared to dealing with
-                that!</figcaption>
-            </figure>
-            <figure>
-                <img src="vt100-t.jpg" data-large="vt100.jpg" alt="DEC VT-100">
-                <figcaption><em>Image 4</em>, DEC VT100, a kind of terminal that
-                a terminal emulator such as xterm emulates. It has a visual
-                display and supports the essential escape sequences.</figcaption>
-            </figure>
-        </div>
-    </div>
-
-    <h2>The table</h2>
-    <table id="table">
-        <tbody>
-            <tr>
-                <th>Dec</th>
-                <th>Hex</th>
-                <th>Binary</th>
-                <th>Char</th>
-            </tr>
-
-            <tr>
-                <td>0</td>
-                <td>0x0</td>
-                <td>00 00000</td>
-                <td title="\0, null character">NUL</td>
-            </tr>
-
-            <tr>
-                <td>1</td>
-                <td>0x1</td>
-                <td>00 00001</td>
-                <td title="start of heading">SOH</td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>0x2</td>
-                <td>00 00010</td>
-                <td title="start of text">STX</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>0x3</td>
-                <td>00 00011</td>
-                <td title="end of text">ETX</td>
-            </tr>
-
-            <tr>
-                <td>4</td>
-                <td>0x4</td>
-                <td>00 00100</td>
-                <td title="end of transmission">EOT</td>
-            </tr>
-
-            <tr>
-                <td>5</td>
-                <td>0x5</td>
-                <td>00 00101</td>
-                <td title="enquiry">ENQ</td>
-            </tr>
-
-            <tr>
-                <td>6</td>
-                <td>0x6</td>
-                <td>00 00110</td>
-                <td title="acknowledge">ACK</td>
-            </tr>
-
-            <tr>
-                <td>7</td>
-                <td>0x7</td>
-                <td>00 00111</td>
-                <td title="\a, bell">BEL</td>
-            </tr>
-
-            <tr>
-                <td>8</td>
-                <td>0x8</td>
-                <td>00 01000</td>
-                <td title="\b, backspace">BS</td>
-            </tr>
-
-            <tr>
-                <td>9</td>
-                <td>0x9</td>
-                <td>00 01001</td>
-                <td title="\t, horizontal tab">HT</td>
-            </tr>
-
-            <tr>
-                <td>10</td>
-                <td>0xa</td>
-                <td>00 01010</td>
-                <td title="\n, new line">LF</td>
-            </tr>
-
-            <tr>
-                <td>11</td>
-                <td>0xb</td>
-                <td>00 01011</td>
-                <td title="\v, vertical tab">VT</td>
-            </tr>
-
-            <tr>
-                <td>12</td>
-                <td>0xc</td>
-                <td>00 01100</td>
-                <td title="\f, form feed">FF</td>
-            </tr>
-
-            <tr>
-                <td>13</td>
-                <td>0xd</td>
-                <td>00 01101</td>
-                <td title="\r, carriage ret">CR</td>
-            </tr>
-
-            <tr>
-                <td>14</td>
-                <td>0xe</td>
-                <td>00 01110</td>
-                <td title="shift out">SO</td>
-            </tr>
-
-            <tr>
-                <td>15</td>
-                <td>0xf</td>
-                <td>00 01111</td>
-                <td title="shift in">SI</td>
-            </tr>
-
-            <tr>
-                <td>16</td>
-                <td>0x10</td>
-                <td>00 10000</td>
-                <td title="data link escape">DLE</td>
-            </tr>
-
-            <tr>
-                <td>17</td>
-                <td>0x11</td>
-                <td>00 10001</td>
-                <td title="device control 1">DC1</td>
-            </tr>
-
-            <tr>
-                <td>18</td>
-                <td>0x12</td>
-                <td>00 10010</td>
-                <td title="device control 2">DC2</td>
-            </tr>
-
-            <tr>
-                <td>19</td>
-                <td>0x13</td>
-                <td>00 10011</td>
-                <td title="device control 3">DC3</td>
-            </tr>
-
-            <tr>
-                <td>20</td>
-                <td>0x14</td>
-                <td>00 10100</td>
-                <td title="device control 4">DC4</td>
-            </tr>
-
-            <tr>
-                <td>21</td>
-                <td>0x15</td>
-                <td>00 10101</td>
-                <td title="negative ack.">NAK</td>
-            </tr>
-
-            <tr>
-                <td>22</td>
-                <td>0x16</td>
-                <td>00 10110</td>
-                <td title="synchronous idle">SYN</td>
-            </tr>
-
-            <tr>
-                <td>23</td>
-                <td>0x17</td>
-                <td>00 10111</td>
-                <td title="end of trans. blk">ETB</td>
-            </tr>
-
-            <tr>
-                <td>24</td>
-                <td>0x18</td>
-                <td>00 11000</td>
-                <td title="cancel">CAN</td>
-            </tr>
-
-            <tr>
-                <td>25</td>
-                <td>0x19</td>
-                <td>00 11001</td>
-                <td title="end of medium">EM</td>
-            </tr>
-
-            <tr>
-                <td>26</td>
-                <td>0x1a</td>
-                <td>00 11010</td>
-                <td title="substitute">SUB</td>
-            </tr>
-
-            <tr>
-                <td>27</td>
-                <td>0x1b</td>
-                <td>00 11011</td>
-                <td title="escape">ESC</td>
-            </tr>
-
-            <tr>
-                <td>28</td>
-                <td>0x1c</td>
-                <td>00 11100</td>
-                <td title="file separator">FS</td>
-            </tr>
-
-            <tr>
-                <td>29</td>
-                <td>0x1d</td>
-                <td>00 11101</td>
-                <td title="group separator">GS</td>
-            </tr>
-
-            <tr>
-                <td>30</td>
-                <td>0x1e</td>
-                <td>00 11110</td>
-                <td title="record separator">RS</td>
-            </tr>
-
-            <tr>
-                <td>31</td>
-                <td>0x1f</td>
-                <td>00 11111</td>
-                <td title="unit separator">US</td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <th>Dec</th>
-                <th>Hex</th>
-                <th>Binary</th>
-                <th>Char</th>
-            </tr>
-
-            <tr>
-                <td>32</td>
-                <td>0x20</td>
-                <td>01 00000</td>
-                <td>SPACE</td>
-            </tr>
-
-            <tr>
-                <td>33</td>
-                <td>0x21</td>
-                <td>01 00001</td>
-                <td>!</td>
-            </tr>
-
-            <tr>
-                <td>34</td>
-                <td>0x22</td>
-                <td>01 00010</td>
-                <td>"</td>
-            </tr>
-
-            <tr>
-                <td>35</td>
-                <td>0x23</td>
-                <td>01 00011</td>
-                <td>#</td>
-            </tr>
-
-            <tr>
-                <td>36</td>
-                <td>0x24</td>
-                <td>01 00100</td>
-                <td>$</td>
-            </tr>
-
-            <tr>
-                <td>37</td>
-                <td>0x25</td>
-                <td>01 00101</td>
-                <td>%</td>
-            </tr>
-
-            <tr>
-                <td>38</td>
-                <td>0x26</td>
-                <td>01 00110</td>
-                <td>&amp;</td>
-            </tr>
-
-            <tr>
-                <td>39</td>
-                <td>0x27</td>
-                <td>01 00111</td>
-                <td>'</td>
-            </tr>
-
-            <tr>
-                <td>40</td>
-                <td>0x28</td>
-                <td>01 01000</td>
-                <td>(</td>
-            </tr>
-
-            <tr>
-                <td>41</td>
-                <td>0x29</td>
-                <td>01 01001</td>
-                <td>)</td>
-            </tr>
-
-            <tr>
-                <td>42</td>
-                <td>0x2a</td>
-                <td>01 01010</td>
-                <td>*</td>
-            </tr>
-
-            <tr>
-                <td>43</td>
-                <td>0x2b</td>
-                <td>01 01011</td>
-                <td>+</td>
-            </tr>
-
-            <tr>
-                <td>44</td>
-                <td>0x2c</td>
-                <td>01 01100</td>
-                <td>,</td>
-            </tr>
-
-            <tr>
-                <td>45</td>
-                <td>0x2d</td>
-                <td>01 01101</td>
-                <td>-</td>
-            </tr>
-
-            <tr>
-                <td>46</td>
-                <td>0x2e</td>
-                <td>01 01110</td>
-                <td>.</td>
-            </tr>
-
-            <tr>
-                <td>47</td>
-                <td>0x2f</td>
-                <td>01 01111</td>
-                <td>/</td>
-            </tr>
-
-            <tr>
-                <td>48</td>
-                <td>0x30</td>
-                <td>01 10000</td>
-                <td>0</td>
-            </tr>
-
-            <tr>
-                <td>49</td>
-                <td>0x31</td>
-                <td>01 10001</td>
-                <td>1</td>
-            </tr>
-
-            <tr>
-                <td>50</td>
-                <td>0x32</td>
-                <td>01 10010</td>
-                <td>2</td>
-            </tr>
-
-            <tr>
-                <td>51</td>
-                <td>0x33</td>
-                <td>01 10011</td>
-                <td>3</td>
-            </tr>
-
-            <tr>
-                <td>52</td>
-                <td>0x34</td>
-                <td>01 10100</td>
-                <td>4</td>
-            </tr>
-
-            <tr>
-                <td>53</td>
-                <td>0x35</td>
-                <td>01 10101</td>
-                <td>5</td>
-            </tr>
-
-            <tr>
-                <td>54</td>
-                <td>0x36</td>
-                <td>01 10110</td>
-                <td>6</td>
-            </tr>
-
-            <tr>
-                <td>55</td>
-                <td>0x37</td>
-                <td>01 10111</td>
-                <td>7</td>
-            </tr>
-
-            <tr>
-                <td>56</td>
-                <td>0x38</td>
-                <td>01 11000</td>
-                <td>8</td>
-            </tr>
-
-            <tr>
-                <td>57</td>
-                <td>0x39</td>
-                <td>01 11001</td>
-                <td>9</td>
-            </tr>
-
-            <tr>
-                <td>58</td>
-                <td>0x3a</td>
-                <td>01 11010</td>
-                <td>:</td>
-            </tr>
-
-            <tr>
-                <td>59</td>
-                <td>0x3b</td>
-                <td>01 11011</td>
-                <td>;</td>
-            </tr>
-
-            <tr>
-                <td>60</td>
-                <td>0x3c</td>
-                <td>01 11100</td>
-                <td>&lt;</td>
-            </tr>
-
-            <tr>
-                <td>61</td>
-                <td>0x3d</td>
-                <td>01 11101</td>
-                <td>=</td>
-            </tr>
-
-            <tr>
-                <td>62</td>
-                <td>0x3e</td>
-                <td>01 11110</td>
-                <td>&gt;</td>
-            </tr>
-
-            <tr>
-                <td>63</td>
-                <td>0x3f</td>
-                <td>01 11111</td>
-                <td>?</td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <th>Dec</th>
-                <th>Hex</th>
-                <th>Binary</th>
-                <th>Char</th>
-            </tr>
-
-            <tr>
-                <td>64</td>
-                <td>0x40</td>
-                <td>10 00000</td>
-                <td>@</td>
-            </tr>
-
-            <tr>
-                <td>65</td>
-                <td>0x41</td>
-                <td>10 00001</td>
-                <td>A</td>
-            </tr>
-
-            <tr>
-                <td>66</td>
-                <td>0x42</td>
-                <td>10 00010</td>
-                <td>B</td>
-            </tr>
-
-            <tr>
-                <td>67</td>
-                <td>0x43</td>
-                <td>10 00011</td>
-                <td>C</td>
-            </tr>
-
-            <tr>
-                <td>68</td>
-                <td>0x44</td>
-                <td>10 00100</td>
-                <td>D</td>
-            </tr>
-
-            <tr>
-                <td>69</td>
-                <td>0x45</td>
-                <td>10 00101</td>
-                <td>E</td>
-            </tr>
-
-            <tr>
-                <td>70</td>
-                <td>0x46</td>
-                <td>10 00110</td>
-                <td>F</td>
-            </tr>
-
-            <tr>
-                <td>71</td>
-                <td>0x47</td>
-                <td>10 00111</td>
-                <td>G</td>
-            </tr>
-
-            <tr>
-                <td>72</td>
-                <td>0x48</td>
-                <td>10 01000</td>
-                <td>H</td>
-            </tr>
-
-            <tr>
-                <td>73</td>
-                <td>0x49</td>
-                <td>10 01001</td>
-                <td>I</td>
-            </tr>
-
-            <tr>
-                <td>74</td>
-                <td>0x4a</td>
-                <td>10 01010</td>
-                <td>J</td>
-            </tr>
-
-            <tr>
-                <td>75</td>
-                <td>0x4b</td>
-                <td>10 01011</td>
-                <td>K</td>
-            </tr>
-
-            <tr>
-                <td>76</td>
-                <td>0x4c</td>
-                <td>10 01100</td>
-                <td>L</td>
-            </tr>
-
-            <tr>
-                <td>77</td>
-                <td>0x4d</td>
-                <td>10 01101</td>
-                <td>M</td>
-            </tr>
-
-            <tr>
-                <td>78</td>
-                <td>0x4e</td>
-                <td>10 01110</td>
-                <td>N</td>
-            </tr>
-
-            <tr>
-                <td>79</td>
-                <td>0x4f</td>
-                <td>10 01111</td>
-                <td>O</td>
-            </tr>
-
-            <tr>
-                <td>80</td>
-                <td>0x50</td>
-                <td>10 10000</td>
-                <td>P</td>
-            </tr>
-
-            <tr>
-                <td>81</td>
-                <td>0x51</td>
-                <td>10 10001</td>
-                <td>Q</td>
-            </tr>
-
-            <tr>
-                <td>82</td>
-                <td>0x52</td>
-                <td>10 10010</td>
-                <td>R</td>
-            </tr>
-
-            <tr>
-                <td>83</td>
-                <td>0x53</td>
-                <td>10 10011</td>
-                <td>S</td>
-            </tr>
-
-            <tr>
-                <td>84</td>
-                <td>0x54</td>
-                <td>10 10100</td>
-                <td>T</td>
-            </tr>
-
-            <tr>
-                <td>85</td>
-                <td>0x55</td>
-                <td>10 10101</td>
-                <td>U</td>
-            </tr>
-
-            <tr>
-                <td>86</td>
-                <td>0x56</td>
-                <td>10 10110</td>
-                <td>V</td>
-            </tr>
-
-            <tr>
-                <td>87</td>
-                <td>0x57</td>
-                <td>10 10111</td>
-                <td>W</td>
-            </tr>
-
-            <tr>
-                <td>88</td>
-                <td>0x58</td>
-                <td>10 11000</td>
-                <td>X</td>
-            </tr>
-
-            <tr>
-                <td>89</td>
-                <td>0x59</td>
-                <td>10 11001</td>
-                <td>Y</td>
-            </tr>
-
-            <tr>
-                <td>90</td>
-                <td>0x5a</td>
-                <td>10 11010</td>
-                <td>Z</td>
-            </tr>
-
-            <tr>
-                <td>91</td>
-                <td>0x5b</td>
-                <td>10 11011</td>
-                <td>[</td>
-            </tr>
-
-            <tr>
-                <td>92</td>
-                <td>0x5c</td>
-                <td>10 11100</td>
-                <td>\</td>
-            </tr>
-
-            <tr>
-                <td>93</td>
-                <td>0x5d</td>
-                <td>10 11101</td>
-                <td>]</td>
-            </tr>
-
-            <tr>
-                <td>94</td>
-                <td>0x5e</td>
-                <td>10 11110</td>
-                <td>^</td>
-            </tr>
-
-            <tr>
-                <td>95</td>
-                <td>0x5f</td>
-                <td>10 11111</td>
-                <td>_</td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <th>Dec</th>
-                <th>Hex</th>
-                <th>Binary</th>
-                <th>Char</th>
-            </tr>
-
-            <tr>
-                <td>96</td>
-                <td>0x60</td>
-                <td>11 00000</td>
-                <td>`</td>
-            </tr>
-
-            <tr>
-                <td>97</td>
-                <td>0x61</td>
-                <td>11 00001</td>
-                <td>a</td>
-            </tr>
-
-            <tr>
-                <td>98</td>
-                <td>0x62</td>
-                <td>11 00010</td>
-                <td>b</td>
-            </tr>
-
-            <tr>
-                <td>99</td>
-                <td>0x63</td>
-                <td>11 00011</td>
-                <td>c</td>
-            </tr>
-
-            <tr>
-                <td>100</td>
-                <td>0x64</td>
-                <td>11 00100</td>
-                <td>d</td>
-            </tr>
-
-            <tr>
-                <td>101</td>
-                <td>0x65</td>
-                <td>11 00101</td>
-                <td>e</td>
-            </tr>
-
-            <tr>
-                <td>102</td>
-                <td>0x66</td>
-                <td>11 00110</td>
-                <td>f</td>
-            </tr>
-
-            <tr>
-                <td>103</td>
-                <td>0x67</td>
-                <td>11 00111</td>
-                <td>g</td>
-            </tr>
-
-            <tr>
-                <td>104</td>
-                <td>0x68</td>
-                <td>11 01000</td>
-                <td>h</td>
-            </tr>
-
-            <tr>
-                <td>105</td>
-                <td>0x69</td>
-                <td>11 01001</td>
-                <td>i</td>
-            </tr>
-
-            <tr>
-                <td>106</td>
-                <td>0x6a</td>
-                <td>11 01010</td>
-                <td>j</td>
-            </tr>
-
-            <tr>
-                <td>107</td>
-                <td>0x6b</td>
-                <td>11 01011</td>
-                <td>k</td>
-            </tr>
-
-            <tr>
-                <td>108</td>
-                <td>0x6c</td>
-                <td>11 01100</td>
-                <td>l</td>
-            </tr>
-
-            <tr>
-                <td>109</td>
-                <td>0x6d</td>
-                <td>11 01101</td>
-                <td>m</td>
-            </tr>
-
-            <tr>
-                <td>110</td>
-                <td>0x6e</td>
-                <td>11 01110</td>
-                <td>n</td>
-            </tr>
-
-            <tr>
-                <td>111</td>
-                <td>0x6f</td>
-                <td>11 01111</td>
-                <td>o</td>
-            </tr>
-
-            <tr>
-                <td>112</td>
-                <td>0x70</td>
-                <td>11 10000</td>
-                <td>p</td>
-            </tr>
-
-            <tr>
-                <td>113</td>
-                <td>0x71</td>
-                <td>11 10001</td>
-                <td>q</td>
-            </tr>
-
-            <tr>
-                <td>114</td>
-                <td>0x72</td>
-                <td>11 10010</td>
-                <td>r</td>
-            </tr>
-
-            <tr>
-                <td>115</td>
-                <td>0x73</td>
-                <td>11 10011</td>
-                <td>s</td>
-            </tr>
-
-            <tr>
-                <td>116</td>
-                <td>0x74</td>
-                <td>11 10100</td>
-                <td>t</td>
-            </tr>
-
-            <tr>
-                <td>117</td>
-                <td>0x75</td>
-                <td>11 10101</td>
-                <td>u</td>
-            </tr>
-
-            <tr>
-                <td>118</td>
-                <td>0x76</td>
-                <td>11 10110</td>
-                <td>v</td>
-            </tr>
-
-            <tr>
-                <td>119</td>
-                <td>0x77</td>
-                <td>11 10111</td>
-                <td>w</td>
-            </tr>
-
-            <tr>
-                <td>120</td>
-                <td>0x78</td>
-                <td>11 11000</td>
-                <td>x</td>
-            </tr>
-
-            <tr>
-                <td>121</td>
-                <td>0x79</td>
-                <td>11 11001</td>
-                <td>y</td>
-            </tr>
-
-            <tr>
-                <td>122</td>
-                <td>0x7a</td>
-                <td>11 11010</td>
-                <td>z</td>
-            </tr>
-
-            <tr>
-                <td>123</td>
-                <td>0x7b</td>
-                <td>11 11011</td>
-                <td>{</td>
-            </tr>
-
-            <tr>
-                <td>124</td>
-                <td>0x7c</td>
-                <td>11 11100</td>
-                <td>|</td>
-            </tr>
-
-            <tr>
-                <td>125</td>
-                <td>0x7d</td>
-                <td>11 11101</td>
-                <td>}</td>
-            </tr>
-
-            <tr>
-                <td>126</td>
-                <td>0x7e</td>
-                <td>11 11110</td>
-                <td>~</td>
-            </tr>
-
-            <tr>
-                <td>127</td>
-                <td>0x7f</td>
-                <td>11 11111</td>
-                <td>DEL</td>
-            </tr>
-
-            </tbody>
-        </table>
-
-        <div>
-            <p style="text-align: center">The binary representation has the most significant bit first
-            ("big endian").<br>
-
-            ASCII is 7-bit; because many have called encodings such as 
-            <a href="https://en.wikipedia.org/wiki/Code_page_437">CP437</a>,
-            <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>,
-            <a href="https://en.wikipedia.org/wiki/Windows-1252">CP-1252</a>,
-            and others “extended ASCII” some are under the misapprehension that
-            ASCII is 8-bit (1 byte).</p>
-        </div>
-
-        <footer>
-            <p>Created by <a href="https://arp242.net">Martin Tournoij</a>,
-            because I’ve had to explain “Control + i *is* Tab” once too many
-            times and figured an in-depth explanation would be helpful.</p>
-
-            <p><a href="https://github.com/arp242/bestasciitable">Source on GitHub</a>;
-            PRs and issues welcome.</p>
-
-            <p>
-                Image credits:
-                <a href="http://collection.sciencemuseum.org.uk/objects/co33749/stock-exchange-printing-telegraph-1907-telegraph">
-                    Image 1 by Science Museum</a>; <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> |
-                <a href="https://en.wikipedia.org/wiki/File:Teletype_with_papertape_punch_and_reader.jpg">
-                    Image 2 by AlisonW</a>; <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a> |
-                <a href="https://en.wikipedia.org/wiki/File:Ken_Thompson_(sitting)_and_Dennis_Ritchie_at_PDP-11_(2876612463).jpg">
-                    Image 3 by Peter Hamer</a>; <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.en">CC BY-SA</a> |
-                <a href="https://www.flickr.com/photos/54568729@N00/9636183501">
-                    Image 4 by Jason Scott</a>; <a href="https://creativecommons.org/licenses/by/2.0/">CC BY</a>
-            </p>
-
-            <p>References and further reading:
-                <a href="https://worldpowersystems.com/ARCHIVE/codes/">An annotated history of some character codes</a> |
-                <a href="https://www.aivosto.com/articles/charsets-7bit.html">7-bit character sets</a> |
-                <a href="https://www.aivosto.com/articles/control-characters.html">Control characters in ASCII and Unicode</a> |
-                <a href="http://www.linusakesson.net/programming/tty/">The TTY demystified</a>
-            </p>
-        </footer>
-
-        <script src="imgzoom.js"></script>
-        <script>
-            window.addEventListener('load', function() {
-                var img = document.querySelectorAll('img');
-                for (var i=0; i<img.length; i++)
-                    img[i].addEventListener('click', function(e) { imgzoom(this); }, false);
-            }, false);
-        </script>
-    </body>
+	<header>
+		<h1>ASCII table and history</h1>
+		<strong>Or, why does Ctrl+i insert a Tab in my terminal?</strong>
+	</header>
+
+	<h2 style="margin-bottom: 0">Introduction <sup>(<a href="#_" class="hide">hide</a>)</sup></h2>
+	<div id="intro">
+		<div>
+			<p>To understand why Control+i inserts a Tab in your terminal you need to understand
+			ASCII, and to understand ASCII you need know a bit about its history and the world it
+			was developed in. Please bear with me (or <a href="#table">just go the table</a>).</p>
+
+			<h3 id="teleprinters">Teleprinters</h3>
+			<p>Teleprinters evolved from the telegraph. Connect a printer and keyboard to a
+			telegraph and you’ve got a teleprinter. Early versions were called “printing
+			telegraphs”.</p>
+
+			<p>Most teleprinters communicated using the ITA2 protocol. For the most part this would
+			just encode the alphabet, but there are a few control codes: WRU (“Who R U”) would cause
+			the receiving teleprinter to send back its identification, BEL would ring a bell, and it
+			had the familiar CR (Carriage Return) and LF (Line Feed).</p>
+
+			<p>This is all early 20th century stuff. There are no electronic computers; it’s all
+			mechanical working with punched tape. ITA2 (and codes like it) were mechanical
+			efficient; common letters such as “e” and “t” required only a single hole to be
+			punched.</p>
+
+			<p>These 5-bit codes could only encode 32 characters, which is not even enough for just
+			English. The solution was to add the FIGS and LTRS codes, which would switch between
+			“figures” and “letters” mode. “FIGS R W” would produce “42”. This worked, but typo’ing a
+			FIGS or LTRS (or losing one in line noise) would result in gibberish. Not ideal.</p>
+
+			<h3 id="terminals">Terminals</h3>
+			<p>In the 1950s teleprinters started to get connected to computers, rather than other
+			teleprinters. ITA2 was designed for mechanical machines and was awkward to use. ASCII
+			was designed specifically for computer use and published in 1962. Teleprinters used with
+			computers were called <em>terminals</em> (as in “end of a connection”, like “train
+			terminal”). Teleprinters were also called
+			“<strong>T</strong>ele<strong>TY</strong>pewriter”, or TTY for short, and you can still
+			find names like /dev/tty or /bin/stty on modern systems.</p>
+
+			<p>People really programmed computers using teleprinters. Here’s a
+			<a href="https://www.youtube.com/watch?v=qv5b1Xowxdk">video of a teleprinter in action</a>,
+			and here’s a somewhat cheesy (but interesting and cute) video which explains how they
+			<a href="https://www.youtube.com/watch?v=XV-7J5y1TQc">were used to program a PDP 11/10</a>.</p>
+
+			<p>A terminal would connect to a computer with a serial port (<a
+				href="https://en.wikipedia.org/wiki/RS-232">RS-232</a>), which simply transfers bytes
+			back and forth. A terminal is more akin to a monitor with a keyboard, rather than a
+			computer on its own. A modern monitor connected with HDMI is told “draw this pixel in
+			this colour”, in the 1960s the computer merely said “here are a bunch of
+			characters”.</p>
+
+			<p>If you’re wondering what a “shell” is: a shell is a program to interact with your
+			computer. It provides a commandline, runs programs, and displays the result. The
+			terminal just displays characters. It’s the difference between a TV and a DVD
+			player.</p>
+
+			<p>Teleprinters needed some way to communicate events such as “stop sending me data”
+			or “end of transmission”. This is what control characters are for. The exact meaning of
+			control characters has varied greatly over the years (which is why extensive
+			<a href="https://en.wikipedia.org/wiki/Termcap">termcap databases</a> are required).
+			ASCII is more than just a character set; it’s a way to communicate between a terminal
+			and a computer.</p>
+
+			<p>An additional method to communicate are <em>escape sequences</em>. This is a list of
+			characters starting with the ESC control character (0x1b). For example F1 is
+			<code>&lt;Esc&gt;OP</code> and the left arrow is <code>&lt;Esc&gt;[OD</code>. Computers
+			can give instructions to terminals, too: <code>&lt;Esc&gt;[2C</code> is move the cursor
+			2 positions forward and <code>&lt;Esc&gt;[4m</code> underlines all subsequent text. This
+			is also how the Alt key works: Alt+a is <code>&lt;Esc&gt;a</code>.</p>
+
+			<h3 id="modern">Modern systems and ASCII properties</h3>
+			<p>All of this matters because modern terminals operate on the same principles as those
+			of the 1960s. If you’re opening three xterm or iTerm2 windows then you’re emulating
+			three terminals connecting to a “mainframe”.</p>
+
+			<p>If you look at the ASCII table below then there are some interesting properties: in
+			the 1<sup>st</sup> column you can see how the left two bits are always set to zero, and
+			that the other 5 bits count to 31 (32 characters in total; it starts at 0). The
+			2<sup>nd</sup> column repeats this pattern but with the 5th bit set to 1 (remember, read
+			binary numbers from right-to-left, so that’s 5<sup>th</sup> from the right). The
+			3<sup>rd</sup> column repeats this pattern again with the 6<sup>th</sup> bit set, and
+			the final column has both bits set.</p>
+
+			<p>The interesting part here is that the letters A-Z and some punctuation map directly
+			to the control characters in the 1<sup>st</sup> column. All that’s needed is removing
+			one bit, and that’s exactly what the Control key did: clear the 7<sup>th</sup> bit.
+			Lowercase and uppercase letters align in the 3<sup>rd</sup> and 4<sup>th</sup> columns,
+			and this is what the Shift key did: clear the 6<sup>th</sup> bit.</p>
+
+			<p>Pressing Control+i (lowercase) would mean sending “)”, which is not very useful. So
+			most terminals interpret this as Control+I (uppercase), which sends HT. DEL is last is
+			so all bits are set to 1. This is how you “deleted” a character in punch tapes: punch
+			all the holes!</p>
+
+			<p>This is kind of neat and well designed, but for us it means:</p>
+			<ul>
+				<li>There is no way to see if the user pressed only Control or Shift, because from a
+					terminal’s perspective all they do is modify a bit for the typed character.</li>
+
+				<li>There is no way to distinguish between the Tab key and Control+i. It’s not just
+					‘the same’ as Tab, Control+i <em>is</em> Tab.</li>
+
+				<li>There is no way to distinguish between Control+a and Control+Shift+a.</li>
+
+				<li>Sending Control with a character from the 2<sup>nd</sup> column is useless.
+					Control clears the 7<sup>th</sup> bit, but this is already 0, so Control+# will
+					just send “#”.</li>
+			</ul>
+
+			<p>The world has not completely stood still and there have been improvements since the
+			1960s, but terminals are still fundamentally ASCII-based text interfaces, and programs
+			running inside a terminal – like a shell or Vim – still have very limited facilities for
+			modern key events. Non-terminal programs don’t have these problems as they’re not
+			restricted to a 1960s text interface.</p>
+
+			<p class="small">Note: for brevity’s sake many
+			details have been omitted in the above: ITA2 was derived from Murray code, the 1967
+			ASCII spec changed many aspects (1962 ASCII only had uppercase), there were other
+			encodings (e.g. EBCDIC), graphical terminals such as the Tektronix 4014 (which xterm can
+			emulate), ioctls, etc.
+			References and further reading:
+				<a href="https://worldpowersystems.com/ARCHIVE/codes/">An annotated history of some character codes</a>,
+				<a href="https://www.aivosto.com/articles/charsets-7bit.html">7-bit character sets</a>,
+				<a href="https://www.aivosto.com/articles/control-characters.html">Control characters in ASCII and Unicode</a>,
+				<a href="http://www.linusakesson.net/programming/tty/">The TTY demystified</a>
+			</p>
+		</div>
+
+		<div id="intro-img">
+			<figure>
+				<img src="printing-telegraph-t.jpg" data-large="printing-telegraph.jpg" alt="Stock Exchange printing telegraph, 1907">
+				<figcaption><em>Image 1</em>, a printing telegraph produced in 1907. The
+					alphabetically sorted piano keys are a great example of how the first generation
+					of new innovations tends to resemble whatever already exists, and that it takes
+					a few more innovations to really get the most out of it. This style of piano
+					keyboards was introduced in the 1840s, and while the keyboard as we know it
+					today was introduced in the 1870s, it took a while for it to replace all
+					piano-style keyboards; this is probably among the last models that was
+					made).</figcaption>
+			</figure>
+			<figure>
+				<img src="tty-model-33-asr-t.jpg" data-large="tty-model-33-asr.jpg" alt="Teletype model 33 ASR, 1963">
+				<figcaption><em>Image 2</em>, the Teletype model 33 ASR, introduced in 1963. This is
+					one first ASCII teleprinters. Note the machinery on the left; you could feed
+					this with a punched tape to automatically type a program for you, similar to how
+					you would now load a program from a disk.
+					The Teletype model 33 was massively popular, and the brand name Teletype became
+					synonymous with terminal.
+				</figcaption>
+			</figure>
+			<figure>
+				<img src="pdp11-t.jpg" data-large="pdp11.jpg" alt="Ken Thompson working on the PDP-11">
+				<figcaption><em>Image 3</em>, Ken Thompson working on the PDP-11 using a Teletype
+					(model 33?). What always struck be about this image is the atrocious ergonomics
+					of … everything. The keyboard, the chair, everything about the posture: it’s all
+					terrible. Inventing Unix almost seems <em>easy</em> compared to dealing with
+					that!</figcaption>
+			</figure>
+			<figure>
+				<img src="vt100-t.jpg" data-large="vt100.jpg" alt="DEC VT-100">
+				<figcaption><em>Image 4</em>, DEC VT100, a kind of terminal that a terminal emulator
+				such as xterm emulates. It has a visual display and supports the essential escape
+				sequences still in use today. These were known as “visual terminals”, referring to
+				the visual screen with characters, as opposed to printing them out.</figcaption>
+			</figure>
+		</div>
+	</div>
+
+	<h2>The table</h2>
+	<table id="table">
+		<tbody>
+			<tr><th>Dec</th><th>Hex</th><th>Binary</th><th>Char</th></tr>
+			<tr><td>0</td><td>0x0</td><td>00 00000</td><td title="\0, null character">NUL</td></tr>
+			<tr><td>1</td><td>0x1</td><td>00 00001</td><td title="start of heading">SOH</td></tr>
+			<tr><td>2</td><td>0x2</td><td>00 00010</td><td title="start of text">STX</td></tr>
+			<tr><td>3</td><td>0x3</td><td>00 00011</td><td title="end of text">ETX</td></tr>
+			<tr><td>4</td><td>0x4</td><td>00 00100</td><td title="end of transmission">EOT</td></tr>
+			<tr><td>5</td><td>0x5</td><td>00 00101</td><td title="enquiry">ENQ</td></tr>
+			<tr><td>6</td><td>0x6</td><td>00 00110</td><td title="acknowledge">ACK</td></tr>
+			<tr><td>7</td><td>0x7</td><td>00 00111</td><td title="\a, bell">BEL</td></tr>
+			<tr><td>8</td><td>0x8</td><td>00 01000</td><td title="\b, backspace">BS</td></tr>
+			<tr><td>9</td><td>0x9</td><td>00 01001</td><td title="\t, horizontal tab">HT</td></tr>
+			<tr><td>10</td><td>0xa</td><td>00 01010</td><td title="\n, new line">LF</td></tr>
+			<tr><td>11</td><td>0xb</td><td>00 01011</td><td title="\v, vertical tab">VT</td></tr>
+			<tr><td>12</td><td>0xc</td><td>00 01100</td><td title="\f, form feed">FF</td></tr>
+			<tr><td>13</td><td>0xd</td><td>00 01101</td><td title="\r, carriage ret">CR</td></tr>
+			<tr><td>14</td><td>0xe</td><td>00 01110</td><td title="shift out">SO</td></tr>
+			<tr><td>15</td><td>0xf</td><td>00 01111</td><td title="shift in">SI</td></tr>
+			<tr><td>16</td><td>0x10</td><td>00 10000</td><td title="data link escape">DLE</td></tr>
+			<tr><td>17</td><td>0x11</td><td>00 10001</td><td title="device control 1">DC1</td></tr>
+			<tr><td>18</td><td>0x12</td><td>00 10010</td><td title="device control 2">DC2</td></tr>
+			<tr><td>19</td><td>0x13</td><td>00 10011</td><td title="device control 3">DC3</td></tr>
+			<tr><td>20</td><td>0x14</td><td>00 10100</td><td title="device control 4">DC4</td></tr>
+			<tr><td>21</td><td>0x15</td><td>00 10101</td><td title="negative ack.">NAK</td></tr>
+			<tr><td>22</td><td>0x16</td><td>00 10110</td><td title="synchronous idle">SYN</td></tr>
+			<tr><td>23</td><td>0x17</td><td>00 10111</td><td title="end of trans. blk">ETB</td></tr>
+			<tr><td>24</td><td>0x18</td><td>00 11000</td><td title="cancel">CAN</td></tr>
+			<tr><td>25</td><td>0x19</td><td>00 11001</td><td title="end of medium">EM</td></tr>
+			<tr><td>26</td><td>0x1a</td><td>00 11010</td><td title="substitute">SUB</td></tr>
+			<tr><td>27</td><td>0x1b</td><td>00 11011</td><td title="escape">ESC</td></tr>
+			<tr><td>28</td><td>0x1c</td><td>00 11100</td><td title="file separator">FS</td></tr>
+			<tr><td>29</td><td>0x1d</td><td>00 11101</td><td title="group separator">GS</td></tr>
+			<tr><td>30</td><td>0x1e</td><td>00 11110</td><td title="record separator">RS</td></tr>
+			<tr><td>31</td><td>0x1f</td><td>00 11111</td><td title="unit separator">US</td></tr>
+		</tbody>
+		<tbody>
+			<tr><th>Dec</th><th>Hex</th><th>Binary</th><th>Char</th></tr>
+			<tr><td>32</td><td>0x20</td><td>01 00000</td><td>SPACE</td></tr>
+			<tr><td>33</td><td>0x21</td><td>01 00001</td><td>!</td></tr>
+			<tr><td>34</td><td>0x22</td><td>01 00010</td><td>"</td></tr>
+			<tr><td>35</td><td>0x23</td><td>01 00011</td><td>#</td></tr>
+			<tr><td>36</td><td>0x24</td><td>01 00100</td><td>$</td></tr>
+			<tr><td>37</td><td>0x25</td><td>01 00101</td><td>%</td></tr>
+			<tr><td>38</td><td>0x26</td><td>01 00110</td><td>&amp;</td></tr>
+			<tr><td>39</td><td>0x27</td><td>01 00111</td><td>'</td></tr>
+			<tr><td>40</td><td>0x28</td><td>01 01000</td><td>(</td></tr>
+			<tr><td>41</td><td>0x29</td><td>01 01001</td><td>)</td></tr>
+			<tr><td>42</td><td>0x2a</td><td>01 01010</td><td>*</td></tr>
+			<tr><td>43</td><td>0x2b</td><td>01 01011</td><td>+</td></tr>
+			<tr><td>44</td><td>0x2c</td><td>01 01100</td><td>,</td></tr>
+			<tr><td>45</td><td>0x2d</td><td>01 01101</td><td>-</td></tr>
+			<tr><td>46</td><td>0x2e</td><td>01 01110</td><td>.</td></tr>
+			<tr><td>47</td><td>0x2f</td><td>01 01111</td><td>/</td></tr>
+			<tr><td>48</td><td>0x30</td><td>01 10000</td><td>0</td></tr>
+			<tr><td>49</td><td>0x31</td><td>01 10001</td><td>1</td></tr>
+			<tr><td>50</td><td>0x32</td><td>01 10010</td><td>2</td></tr>
+			<tr><td>51</td><td>0x33</td><td>01 10011</td><td>3</td></tr>
+			<tr><td>52</td><td>0x34</td><td>01 10100</td><td>4</td></tr>
+			<tr><td>53</td><td>0x35</td><td>01 10101</td><td>5</td></tr>
+			<tr><td>54</td><td>0x36</td><td>01 10110</td><td>6</td></tr>
+			<tr><td>55</td><td>0x37</td><td>01 10111</td><td>7</td></tr>
+			<tr><td>56</td><td>0x38</td><td>01 11000</td><td>8</td></tr>
+			<tr><td>57</td><td>0x39</td><td>01 11001</td><td>9</td></tr>
+			<tr><td>58</td><td>0x3a</td><td>01 11010</td><td>:</td></tr>
+			<tr><td>59</td><td>0x3b</td><td>01 11011</td><td>;</td></tr>
+			<tr><td>60</td><td>0x3c</td><td>01 11100</td><td>&lt;</td></tr>
+			<tr><td>61</td><td>0x3d</td><td>01 11101</td><td>=</td></tr>
+			<tr><td>62</td><td>0x3e</td><td>01 11110</td><td>&gt;</td></tr>
+			<tr><td>63</td><td>0x3f</td><td>01 11111</td><td>?</td></tr>
+		</tbody>
+		<tbody>
+			<tr><th>Dec</th><th>Hex</th><th>Binary</th><th>Char</th></tr>
+			<tr><td>64</td><td>0x40</td><td>10 00000</td><td>@</td></tr>
+			<tr><td>65</td><td>0x41</td><td>10 00001</td><td>A</td></tr>
+			<tr><td>66</td><td>0x42</td><td>10 00010</td><td>B</td></tr>
+			<tr><td>67</td><td>0x43</td><td>10 00011</td><td>C</td></tr>
+			<tr><td>68</td><td>0x44</td><td>10 00100</td><td>D</td></tr>
+			<tr><td>69</td><td>0x45</td><td>10 00101</td><td>E</td></tr>
+			<tr><td>70</td><td>0x46</td><td>10 00110</td><td>F</td></tr>
+			<tr><td>71</td><td>0x47</td><td>10 00111</td><td>G</td></tr>
+			<tr><td>72</td><td>0x48</td><td>10 01000</td><td>H</td></tr>
+			<tr><td>73</td><td>0x49</td><td>10 01001</td><td>I</td></tr>
+			<tr><td>74</td><td>0x4a</td><td>10 01010</td><td>J</td></tr>
+			<tr><td>75</td><td>0x4b</td><td>10 01011</td><td>K</td></tr>
+			<tr><td>76</td><td>0x4c</td><td>10 01100</td><td>L</td></tr>
+			<tr><td>77</td><td>0x4d</td><td>10 01101</td><td>M</td></tr>
+			<tr><td>78</td><td>0x4e</td><td>10 01110</td><td>N</td></tr>
+			<tr><td>79</td><td>0x4f</td><td>10 01111</td><td>O</td></tr>
+			<tr><td>80</td><td>0x50</td><td>10 10000</td><td>P</td></tr>
+			<tr><td>81</td><td>0x51</td><td>10 10001</td><td>Q</td></tr>
+			<tr><td>82</td><td>0x52</td><td>10 10010</td><td>R</td></tr>
+			<tr><td>83</td><td>0x53</td><td>10 10011</td><td>S</td></tr>
+			<tr><td>84</td><td>0x54</td><td>10 10100</td><td>T</td></tr>
+			<tr><td>85</td><td>0x55</td><td>10 10101</td><td>U</td></tr>
+			<tr><td>86</td><td>0x56</td><td>10 10110</td><td>V</td></tr>
+			<tr><td>87</td><td>0x57</td><td>10 10111</td><td>W</td></tr>
+			<tr><td>88</td><td>0x58</td><td>10 11000</td><td>X</td></tr>
+			<tr><td>89</td><td>0x59</td><td>10 11001</td><td>Y</td></tr>
+			<tr><td>90</td><td>0x5a</td><td>10 11010</td><td>Z</td></tr>
+			<tr><td>91</td><td>0x5b</td><td>10 11011</td><td>[</td></tr>
+			<tr><td>92</td><td>0x5c</td><td>10 11100</td><td>\</td></tr>
+			<tr><td>93</td><td>0x5d</td><td>10 11101</td><td>]</td></tr>
+			<tr><td>94</td><td>0x5e</td><td>10 11110</td><td>^</td></tr>
+			<tr><td>95</td><td>0x5f</td><td>10 11111</td><td>_</td></tr>
+		</tbody>
+		<tbody>
+			<tr><th>Dec</th><th>Hex</th><th>Binary</th><th>Char</th></tr>
+			<tr><td>96</td><td>0x60</td><td>11 00000</td><td>`</td></tr>
+			<tr><td>97</td><td>0x61</td><td>11 00001</td><td>a</td></tr>
+			<tr><td>98</td><td>0x62</td><td>11 00010</td><td>b</td></tr>
+			<tr><td>99</td><td>0x63</td><td>11 00011</td><td>c</td></tr>
+			<tr><td>100</td><td>0x64</td><td>11 00100</td><td>d</td></tr>
+			<tr><td>101</td><td>0x65</td><td>11 00101</td><td>e</td></tr>
+			<tr><td>102</td><td>0x66</td><td>11 00110</td><td>f</td></tr>
+			<tr><td>103</td><td>0x67</td><td>11 00111</td><td>g</td></tr>
+			<tr><td>104</td><td>0x68</td><td>11 01000</td><td>h</td></tr>
+			<tr><td>105</td><td>0x69</td><td>11 01001</td><td>i</td></tr>
+			<tr><td>106</td><td>0x6a</td><td>11 01010</td><td>j</td></tr>
+			<tr><td>107</td><td>0x6b</td><td>11 01011</td><td>k</td></tr>
+			<tr><td>108</td><td>0x6c</td><td>11 01100</td><td>l</td></tr>
+			<tr><td>109</td><td>0x6d</td><td>11 01101</td><td>m</td></tr>
+			<tr><td>110</td><td>0x6e</td><td>11 01110</td><td>n</td></tr>
+			<tr><td>111</td><td>0x6f</td><td>11 01111</td><td>o</td></tr>
+			<tr><td>112</td><td>0x70</td><td>11 10000</td><td>p</td></tr>
+			<tr><td>113</td><td>0x71</td><td>11 10001</td><td>q</td></tr>
+			<tr><td>114</td><td>0x72</td><td>11 10010</td><td>r</td></tr>
+			<tr><td>115</td><td>0x73</td><td>11 10011</td><td>s</td></tr>
+			<tr><td>116</td><td>0x74</td><td>11 10100</td><td>t</td></tr>
+			<tr><td>117</td><td>0x75</td><td>11 10101</td><td>u</td></tr>
+			<tr><td>118</td><td>0x76</td><td>11 10110</td><td>v</td></tr>
+			<tr><td>119</td><td>0x77</td><td>11 10111</td><td>w</td></tr>
+			<tr><td>120</td><td>0x78</td><td>11 11000</td><td>x</td></tr>
+			<tr><td>121</td><td>0x79</td><td>11 11001</td><td>y</td></tr>
+			<tr><td>122</td><td>0x7a</td><td>11 11010</td><td>z</td></tr>
+			<tr><td>123</td><td>0x7b</td><td>11 11011</td><td>{</td></tr>
+			<tr><td>124</td><td>0x7c</td><td>11 11100</td><td>|</td></tr>
+			<tr><td>125</td><td>0x7d</td><td>11 11101</td><td>}</td></tr>
+			<tr><td>126</td><td>0x7e</td><td>11 11110</td><td>~</td></tr>
+			<tr><td>127</td><td>0x7f</td><td>11 11111</td><td>DEL</td></tr>
+		</tbody>
+	</table>
+
+	<div>
+		<p style="text-align: center">The binary representation has the most significant bit first
+		(“big endian”).<br>
+
+		ASCII is 7-bit; because many have called encodings such as 
+		<a href="https://en.wikipedia.org/wiki/Code_page_437">CP437</a>,
+		<a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>,
+		<a href="https://en.wikipedia.org/wiki/Windows-1252">CP-1252</a>,
+		and others “extended ASCII” some are under the misapprehension that
+		ASCII is 8-bit (1 byte).</p>
+	</div>
+
+	<footer>
+		<p>Created by <a href="https://arp242.net">Martin Tournoij</a>,
+		because I’ve had to explain “Control+i <em>is</em> Tab” once too many
+		times and figured an in-depth explanation would be helpful.</p>
+
+		<p><a href="https://github.com/arp242/bestasciitable">Source on GitHub</a>;
+		PRs and issues welcome.</p>
+
+		<p>
+			Image credits:
+			<a href="http://collection.sciencemuseum.org.uk/objects/co33749/stock-exchange-printing-telegraph-1907-telegraph">
+				Image 1 by Science Museum</a>; <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA</a> |
+			<a href="https://en.wikipedia.org/wiki/File:Teletype_with_papertape_punch_and_reader.jpg">
+				Image 2 by AlisonW</a>; <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA</a> |
+			<a href="https://en.wikipedia.org/wiki/File:Ken_Thompson_(sitting)_and_Dennis_Ritchie_at_PDP-11_(2876612463).jpg">
+				Image 3 by Peter Hamer</a>; <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.en">CC BY-SA</a> |
+			<a href="https://www.flickr.com/photos/54568729@N00/9636183501">
+				Image 4 by Jason Scott</a>; <a href="https://creativecommons.org/licenses/by/2.0/">CC BY</a>
+		</p>
+	</footer>
+
+	<script src="imgzoom.js"></script>
+	<script>
+		window.addEventListener('load', function() {
+			// Zoom images.
+			var img = document.querySelectorAll('img');
+			for (var i=0; i<img.length; i++)
+				img[i].addEventListener('click', function() { imgzoom(this); }, false);
+
+			// Hide button.
+			var hide = document.querySelector('.hide'),
+				intro = document.querySelector('#intro');
+			hide.addEventListener('click', function(e) {
+				e.preventDefault();
+
+				if (intro.style.height === '0px') {
+					intro.style.height = '';
+					hide.innerHTML = 'hide';
+					window.localStorage.removeItem('hide');
+				}
+				else {
+					intro.style.height = '0px';
+					hide.innerHTML = 'show';
+					window.localStorage.setItem('hide', 't');
+				}
+			});
+			if (window.localStorage.getItem('hide') === 't')
+				hide.click();
+		}, false);
+	</script>
+	<script>
+		(function() {
+			if (window.location.hostname.indexOf('localhost') > -1) {
+				return;
+			}
+
+			var script = document.createElement('script');
+			window.counter = 'https://bestasciitable.goatcounter.com/count'
+			script.async = 1;
+			script.src = '//static.goatcounter.com/count.min.js';
+
+			var ins = document.getElementsByTagName('script')[0];
+			ins.parentNode.insertBefore(script, ins)
+		})();
+	</script>
+</body>
 </html>
