@@ -133,12 +133,13 @@
 			are required). ASCII is more than just a character set; it’s a way to communicate
 			between a terminal and a computer.</p>
 
-			<p>An additional method to communicate are <em>escape sequences</em>. This is a list of
-			characters starting with the ESC control character (0x1b). For example F1 is
-			<code>&lt;Esc&gt;OP</code> and the left arrow is <code>&lt;Esc&gt;[OD</code>. Computers
-			can give instructions to terminals, too: <code>&lt;Esc&gt;[2C</code> is move the cursor
-			2 positions forward and <code>&lt;Esc&gt;[4m</code> underlines all subsequent text. This
-			is also how the Alt key works: Alt+a is <code>&lt;Esc&gt;a</code>.</p>
+			<p>An additional method to communicate are
+			<a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank">escape sequences</a>.
+			This is a list of characters starting with the ESC control character (0x1b). For example
+			F1 is <code>&lt;Esc&gt;OP</code> and the left arrow is <code>&lt;Esc&gt;[OD</code>.
+			Computers can give instructions to terminals, too: <code>&lt;Esc&gt;[2C</code> is move
+			the cursor 2 positions forward and <code>&lt;Esc&gt;[4m</code> underlines all subsequent
+			text. This is also how the Alt key works: Alt+a is <code>&lt;Esc&gt;a</code>.</p>
 
 			<h3 id="modern">Modern systems and ASCII properties</h3>
 			<p>All of this matters because modern terminals operate on the same principles as those
@@ -186,7 +187,7 @@
 			restricted to a 1960s text interface.</p>
 
 			<p class="small">Note: for brevity’s sake many
-			details have been omitted in the above: ITA2 was derived from Murray code, the 1967
+			aspects have been omitted in the above: ITA2 was derived from Murray code, the 1967
 			ASCII spec changed many aspects (1962 ASCII only had uppercase), there were other
 			encodings (e.g. EBCDIC), graphical terminals such as the Tektronix 4014 (which xterm can
 			emulate), ioctls, etc.
