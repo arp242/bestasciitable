@@ -40,6 +40,10 @@ for n in range(0, 128):
     if n < 0x20:
         title = titles[n]
 
+    h = hex(n)
+    if n < 16:
+        h = h.replace('x', 'x0')
+
     b = f'{n:0>7b}'
-    print(f'''    <tr><td>{n}</td><td>{hex(n)}</td><td>{b[:2]} {b[2:]}</td><td{' title="' + title + '"' if title else ''}>{char}</td></tr>''')
+    print(f'''    <tr><td>{n}</td><td>{h}</td><td>{b[:2]} {b[2:]}</td><td{' title="' + title + '"' if title else ''}>{char}</td></tr>''')
 print('</tbody>')
