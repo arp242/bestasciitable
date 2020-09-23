@@ -16,7 +16,7 @@
 		h2         { background-color: #ebe7c3; width: 100%; text-align: center; padding: .5em 0; margin-top: .5em;  }
 		h3         { margin: 0; }
 		h3 + p     { margin-top: 5px; }
-		#context   { max-width: 60em; display: flex; overflow: hidden; }
+		#context-t { max-width: 60em; display: flex; overflow: hidden; }
 		img        { cursor: pointer; }
 		figure     { max-width: 300px; background-color: #fff; color: #333; border: 1px solid #ddd; border-radius: 2px; margin-right: 0; }
 		figcaption { padding: 0 6px; padding-bottom: 4px; }
@@ -45,9 +45,9 @@
 		.imgzoom-large      { cursor: pointer; box-shadow: 0 0 8px rgba(0, 0, 0, .3); transition: all .4s; }
 
 		@media (max-width: 62em) {
-			#context { padding: 0 1em; }
-			figure   { margin-left: 1em; }
-			table    { margin-left: 1em; margin-right: 1em; }
+			#context-t { padding: 0 1em; }
+			figure     { margin-left: 1em; }
+			table      { margin-left: 1em; margin-right: 1em; }
 		}
 
 		@media (max-width: 45em) {
@@ -55,9 +55,9 @@
 		}
 
 		@media (max-width: 40em) {
-			figure   { width: 100%; text-align: center; }
-			img      { width: 100%; }
-			#context { display: block; }
+			figure       { width: 100%; text-align: center; }
+			img          { width: 100%; }
+			#context-t   { display: block; }
 			#context-img {
 				display: flex;
 				flex-wrap: wrap;
@@ -228,8 +228,8 @@
 		ASCII is 8-bit (1 byte).</p>
 	</div>
 
-	<h2 style="margin-bottom: 0">Understanding ASCII (and terminals)</h2>
-	<div id="context">
+	<h2 style="margin-bottom: 0" id="context">Understanding ASCII (and terminals)</h2>
+	<div id="context-t">
 		<div>
 			<p>To understand why Control+i inserts a Tab in your terminal you need to understand
 			ASCII, and to understand ASCII you need know a bit about its history and the world it
